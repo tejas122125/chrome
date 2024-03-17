@@ -3,7 +3,10 @@ function App() {
 
   return (
     <>
-      monu
+      
+      <div className="bg-red">
+
+      </div>
     </>
   )
 }

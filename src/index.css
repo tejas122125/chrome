@@ -1,0 +1,114 @@
+
+
+.header{
+  text-decoration: underline;
+  padding: 5px;
+}
+
+.screenshotbutton{
+  border-radius: 4px;
+  background-color: brown;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+
+}
+.screenshotbutton:hover{
+  background-color: burlywood;
+}
+.clipboard{
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  scrollbar-width: 0px;
+}
+.clipboardcontent{
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  gap: 4px;
+}
+.copycontent{
+    flex: 1; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.copybutton {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.copybutton:hover {
+  background-color: #0056b3;
+}
+.screenshot {
+  padding: 2px;
+  border-radius: 4px;
+  background-color: aqua;
+  width:100%;
+  height: auto;
+  display: flex;
+  flex-direction: row ;
+  gap: 4px;
+  justify-content: space-between;
+
+ 
+}
+.main{
+  padding: 4px;
+  width: 300px;;
+  height: 350px;
+  background-color: #646cff;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}

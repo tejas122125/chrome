@@ -2,9 +2,11 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from flask import Flask, jsonify,request
 import json
-
+from dotenv import load_dotenv
 import requests
+import os
 
+load_dotenv()
 
 
 
@@ -36,9 +38,10 @@ parsed_text=""
    
 @app.route("/getdata",methods=['POST'])
 def getdata():
+    apikey = os.getenv('OPENAI_API_KEY')
     image_url = request.json['url']
     
-    payload = {"url":image_url,'isOverlayRequired': False,'apikey': 'K89185416088957','language': 'eng'}
+    payload = {"url":image_url,'isOverlayRequired': False,'apikey':apikey,'language': 'eng'}
 
     r = requests.post('https://api.ocr.space/parse/image',
                           data=payload,

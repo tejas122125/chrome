@@ -59,14 +59,12 @@ from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
 import os
 from langchain_community.llms import HuggingFaceEndpoint
 
-HUGGINGFACEHUB_API_TOKEN = getpass()
-
-os.environ["HUGGINGFACEHUB_API_TOKEN"] = HUGGINGFACEHUB_API_TOKEN
 
 
 repo_id = "mistralai/Mistral-7B-Instruct-v0.2"
 llm = HuggingFaceEndpoint(
-    repo_id=repo_id, max_length=128, temperature=0.5, token=HUGGINGFACEHUB_API_TOKEN
+    repo_id=repo_id, temperature=0.5, token="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",
+     model_kwargs={"temperature": 0.1, "max_length": 64}
 )
 
 template = """Question: {question}

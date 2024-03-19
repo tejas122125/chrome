@@ -53,6 +53,26 @@
     
 # if __name__ == "__main__":
 #   app.run(port=8080,debug=True)
-
+from getpass import getpass
 from langchain.prompts import PromptTemplate
-from langchain import HuggingFaceHub
+from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
+import os
+from langchain_community.llms import HuggingFaceEndpoint
+
+HUGGINGFACEHUB_API_TOKEN = getpass()
+
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = HUGGINGFACEHUB_API_TOKEN
+
+
+repo_id = "mistralai/Mistral-7B-Instruct-v0.2"
+llm = HuggingFaceEndpoint(
+    repo_id=repo_id, max_length=128, temperature=0.5, token=HUGGINGFACEHUB_API_TOKEN
+)
+
+template = """Question: {question}
+Answer: Let's think step by step."""
+prompt = PromptTemplate.from_template(template)
+
+chain = prompt | llm
+question = "What is electroencephalography?"
+print(chain.invoke({"question": question}))

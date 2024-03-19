@@ -1,0 +1,73 @@
+
+
+.header{
+    text-decoration: underline;
+    padding: 5px;
+  }
+  
+  .screenshotbutton{
+    border-radius: 4px;
+    background-color: brown;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+  
+  }
+  .screenshotbutton:hover{
+    background-color: burlywood;
+  }
+  .clipboard{
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    scrollbar-width: 0px;
+  }
+  .clipboardcontent{
+    display: flex;
+    flex-direction: row;
+  
+    align-items: center;
+    gap: 4px;
+  }
+  .green-background {
+    background-color: green ;
+  }
+  .copycontent{
+    overflow-x: hidden;
+    overflow-y: hidden;
+      flex: 1; 
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+  }
+  .copybutton {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .copybutton:hover {
+    background-color: #0056b3;
+  }
+  .screenshot {
+    padding: 2px;
+    border-radius: 4px;
+    background-color: aqua;
+    width:100%;
+    height: auto;
+    display: flex;
+    flex-direction: row ;
+    gap: 4px;
+    justify-content: space-between;
+  
+   
+  }
+ .main {
+    background:blue;
+    width: 300px;
+    height: 500px;
+ }

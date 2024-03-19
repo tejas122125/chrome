@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "testing",
+    "name": "monu",
     "version": "1.0.1",
     "icons": {
         "32": "icon32.png"
@@ -12,6 +12,12 @@
     "permissions": [
         "scripting","activeTab"
     ],
+    "content_scripts": [
+        {
+          "matches": ["<all_urls>"],
+          "js": ["index.js"]
+        }
+      ],
     "host_permissions": [
         "http://*/*",
         "https://*/*"

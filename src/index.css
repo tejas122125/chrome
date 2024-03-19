@@ -31,7 +31,12 @@
   align-items: center;
   gap: 4px;
 }
+.green-background {
+  background-color: green ;
+}
 .copycontent{
+  overflow-x: hidden;
+  overflow-y: hidden;
     flex: 1; 
     padding: 10px;
     border: 1px solid #ccc;

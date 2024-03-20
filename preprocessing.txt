@@ -1,0 +1,8 @@
+mc_df.describe()
+
+
+Handling Outliers
+shoe_size: We can clearly see that the single maximum value of shoe size (38) is an outlier and we should ideally remove that row or handle that outlier value. Let's take a look at that entry in our data.
+
+remove NaN value from each column 
+

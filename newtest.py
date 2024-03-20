@@ -24,8 +24,7 @@ openaikey = os.environ.get("OPENAI_API_KEY")
 llm = ChatOpenAI(model="gpt-3.5-turbo-1106", temperature=0,api_key=openaikey)
 
 conversation_with_summary = ConversationChain(
-    llm=llm,
-    # We set a low k=2, to only keep the last 2 interactions in memory
+    llm=llm,    
     memory=ConversationBufferWindowMemory(k=2),
     verbose=True
 )
@@ -33,7 +32,7 @@ conversation_with_summary = ConversationChain(
 
 
 prompt_template = PromptTemplate.from_template(
-    "you are skillfull csv reader using pandas and pythons tools. So answer the question {question} based on the csv file given and generate the necessary python code assuming name of file is {name}."
+    "you are skillfull csv reader using pandas and pythons tools. So answer the question {question} based on the csv file given. If it is a general question just answer donot go for genrating any code or if required generate the necessary python code assuming name of file is {name}. or you can ask necessary question to user for better results"
 )
 
 
@@ -45,6 +44,6 @@ agent_pandas = create_pandas_dataframe_agent(
     agent_type=AgentType.OPENAI_FUNCTIONS,
    
 )
-agent = prompt_template | agent_pandas
-response = agent.invoke({"question":"generate the code for confusion matrix ","name":"Player.csv"})
+agent = prompt_template  | agent_pandas 
+response = agent.invoke({"question":"jremove null values from all column","name":"Player.csv"})
 print (response)

@@ -2,12 +2,18 @@ from langchain.agents.agent_types import AgentType
 from langchain_experimental.agents import create_pandas_dataframe_agent
 from langchain_openai import ChatOpenAI
 from langchain import hub
+import os
 from langchain.agents import AgentExecutor, create_openai_tools_agent
 from langchain_experimental.tools import PythonREPLTool
 from langchain.agents import create_openai_functions_agent
 import pandas as pd
 from langchain_openai import OpenAI
 pythontools = [PythonREPLTool()]
+from dotenv import load_dotenv
+load_dotenv()
+
+openaikey = os.environ.get("OPENAI_API_KEY")
+
 
 instructions = """You are an agent designed to write and execute python code to answer questions.
 You have access to a python REPL, which you can use to execute python code.
@@ -19,10 +25,10 @@ If it does not seem like you can write code to answer the question, just return 
 base_prompt = hub.pull("langchain-ai/openai-functions-template")
 prompt = base_prompt.partial(instructions=instructions)
 
-# agent_python = create_openai_functions_agent(ChatOpenAI(temperature=0,api_key="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"), tools, prompt)
+# agent_python = create_openai_functions_agent(ChatOpenAI(temperature=0,), tools, prompt)
 
 
-llm = ChatOpenAI(model="gpt-3.5-turbo-1106", temperature=0,api_key="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")
+llm = ChatOpenAI(model="gpt-3.5-turbo-1106", temperature=0,api_key=openaikey)
 
 # agent = create_openai_tools_agent(llm, pythontools, prompt)
 

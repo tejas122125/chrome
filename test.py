@@ -32,7 +32,7 @@
 #     print(parsed_text)
 #     print(parsed_data)
 #     openai = ChatOpenAI(
-#     openai_api_key="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"
+#    
 #     )
 #     prompt_template = PromptTemplate.from_template(
 #     "you are skillfull bot which could convert plain text into code. Here is some text: {query}.convert this text into properly indentended code  and with same variable name as in text by automatically detecting the language . Also donot add any further text in it. Also if proper code cannot be produced return the raw data recieved  "  # Prompt structure
@@ -56,6 +56,9 @@
 
 
 from langchain import PromptTemplate, HuggingFaceHub, LLMChain
+import os
+huggingfaceapikey = os.environ.get("HUGGINGFACEHUB_API_TOKEN")
+
 
 template = """Question: {question}
 
@@ -70,7 +73,7 @@ model = HuggingFaceHub(
         "top_k": 30,
         "temperature": 0.1,
         "repetition_penalty": 1.03,
-        "tokens":"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"
+        "tokens":huggingfaceapikey
     },
 )
 llm_chain = LLMChain(prompt=prompt,  llm=model)

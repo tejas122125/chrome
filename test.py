@@ -53,24 +53,27 @@
     
 # if __name__ == "__main__":
 #   app.run(port=8080,debug=True)
-from getpass import getpass
-from langchain.prompts import PromptTemplate
-from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
-import os
-from langchain_community.llms import HuggingFaceEndpoint
 
 
-
-repo_id = "mistralai/Mistral-7B-Instruct-v0.2"
-llm = HuggingFaceEndpoint(
-    repo_id=repo_id, temperature=0.5, token="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",
-     model_kwargs={"temperature": 0.1, "max_length": 64}
-)
+from langchain import PromptTemplate, HuggingFaceHub, LLMChain
 
 template = """Question: {question}
-Answer: Let's think step by step."""
-prompt = PromptTemplate.from_template(template)
 
-chain = prompt | llm
-question = "What is electroencephalography?"
-print(chain.invoke({"question": question}))
+Answer: Let's think step by step."""
+
+prompt = PromptTemplate(template=template, input_variables=["question"])
+model = HuggingFaceHub(
+    repo_id="mistralai/Mixtral-8x7B-Instruct-v0.1",
+    task="text-generation",
+    model_kwargs={
+        "max_new_tokens": 512,
+        "top_k": 30,
+        "temperature": 0.1,
+        "repetition_penalty": 1.03,
+        "tokens":"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"
+    },
+)
+llm_chain = LLMChain(prompt=prompt,  llm=model)
+question = "What is inside area 51?"
+
+print(llm_chain.run(question))

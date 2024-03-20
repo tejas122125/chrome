@@ -9,6 +9,9 @@ from langchain.agents import create_openai_functions_agent
 import pandas as pd
 from langchain_openai import OpenAI
 from langchain.prompts import PromptTemplate
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationBufferWindowMemory
+
 
 
 pythontools = [PythonREPLTool()]
@@ -20,7 +23,15 @@ openaikey = os.environ.get("OPENAI_API_KEY")
 
 llm = ChatOpenAI(model="gpt-3.5-turbo-1106", temperature=0,api_key=openaikey)
 
-# agent = create_openai_tools_agent(llm, pythontools, prompt)
+conversation_with_summary = ConversationChain(
+    llm=llm,
+    # We set a low k=2, to only keep the last 2 interactions in memory
+    memory=ConversationBufferWindowMemory(k=2),
+    verbose=True
+)
+
+
+
 prompt_template = PromptTemplate.from_template(
     "you are skillfull csv reader using pandas and pythons tools. So answer the question {question} based on the csv file given and generate the necessary python code assuming name of file is {name}."
 )
@@ -28,7 +39,6 @@ prompt_template = PromptTemplate.from_template(
 
 df = pd.read_csv("Player.csv")
 agent_pandas = create_pandas_dataframe_agent(
-  
     llm=llm,
     df=df,
     verbose=True,

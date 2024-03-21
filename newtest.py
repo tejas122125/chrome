@@ -45,5 +45,5 @@ agent_pandas = create_pandas_dataframe_agent(
    
 )
 agent = prompt_template  | agent_pandas 
-response = agent.invoke({"question":"give the code to do one hot encoding on Bowling_Skill column","name":"Player.csv"})
+response = agent.invoke({"question":"which columns need outlier treatment that have values very far from rest of normal datas ","name":"Player.csv"})
 print (response)

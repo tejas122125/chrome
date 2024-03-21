@@ -13,7 +13,6 @@ from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferWindowMemory
 
 
-
 pythontools = [PythonREPLTool()]
 from dotenv import load_dotenv
 load_dotenv()
@@ -31,6 +30,7 @@ conversation_with_summary = ConversationChain(
 
 
 
+
 prompt_template = PromptTemplate.from_template(
     "you are skillfull csv reader using pandas and pythons tools. So answer the question {question} based on the csv file given. If it is a general question just answer donot go for genrating any code or if required generate the necessary python code assuming name of file is {name}. or you can ask necessary question to user for better results"
 )
@@ -45,5 +45,5 @@ agent_pandas = create_pandas_dataframe_agent(
    
 )
 agent = prompt_template  | agent_pandas 
-response = agent.invoke({"question":"jremove null values from all column","name":"Player.csv"})
+response = agent.invoke({"question":"give the code to do one hot encoding on Bowling_Skill column","name":"Player.csv"})
 print (response)

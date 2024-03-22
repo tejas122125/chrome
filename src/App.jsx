@@ -43,7 +43,7 @@ const App = () => {
     <div className='w-screen h-screen' > 
     <div className='w-1/2 h-1/2'>
     <canvas  ref={canvasRef} id="myChart" className=''>
-      <p>fallback  from llm</p>
+      <p>fallback call from llm</p>
       </canvas>
     </div>
     

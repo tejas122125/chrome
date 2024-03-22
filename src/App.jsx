@@ -25,6 +25,8 @@ const App = () => {
       }]
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         y: {
           beginAtZero: true
@@ -38,10 +40,13 @@ const App = () => {
 },[])
 
   return (
-    <div className='w-screen h-screen bg-green-400'>  <canvas  ref={canvasRef} id="myChart" className='w-1/2 h-1/2 bg-white'>
-      
-      <p>fallback call from llm</p>
+    <div className='w-screen h-screen' > 
+    <div className='w-1/2 h-1/2'>
+    <canvas  ref={canvasRef} id="myChart" className=''>
+      <p> call from llm</p>
       </canvas>
+    </div>
+    
       </div>
   )
 }

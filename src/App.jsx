@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useRef } from 'react'
 import Chart from 'chart.js/auto';
-
+import { Client, Storage } from "appwrite";
 const App = () => {
   const chart = useRef(null);
   const canvasRef = useRef(null);
@@ -39,7 +39,11 @@ const App = () => {
 
   }, [])
 
+  const client = new Client()
+  .setEndpoint('https://cloud.appwrite.io/v1')
+  .setProject('658c3e666ed66b56edb7');
 
+const storage = new Storage(client);
   const [file, setFile] = useState(null);
 
   const handleFileChange = (event) => {
@@ -47,8 +51,19 @@ const App = () => {
     setFile(selectedFile);
   };
 
-  const handleFileUpload = () => {
+  const handleFileUpload = async () => {
     if (file) {
+      try {
+        const response = await storage.createFile(
+          '658da6ec42519f39311a',
+          ID.unique(),
+          file
+      );
+        console.log(response.$id)
+      } catch (error) {
+        console.log("appwrite error",error )
+      }
+     
       
       console.log('Selected file:', file);
     } else {

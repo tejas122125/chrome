@@ -1,7 +1,8 @@
 import React from 'react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef,useState } from 'react'
 import Chart from 'chart.js/auto';
-import { Client, Storage } from "appwrite";
+import { Client, Storage, } from "appwrite";
+import { ID } from 'appwrite';
 const App = () => {
   const chart = useRef(null);
   const canvasRef = useRef(null);

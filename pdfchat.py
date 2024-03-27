@@ -3,7 +3,7 @@ from PyPDF2 import PdfReader
 from langchain_text_splitters import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 
-from langchain_openai import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings,ChatOpenAI
 from langchain_community.document_loaders import PyPDFLoader
 
 embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
@@ -34,3 +34,6 @@ def get_vectorstore(text_chunks):
     vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
     return vectorstore
 
+def get_conversational_chain():
+    llm = ChatOpenAI(temperature=0.2)
+    

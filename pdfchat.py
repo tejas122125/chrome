@@ -1,3 +1,4 @@
+import os
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from langchain_text_splitters import CharacterTextSplitter
@@ -8,7 +9,7 @@ from langchain_openai import OpenAIEmbeddings,ChatOpenAI
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.chains import ConversationChain
 
-
+openaikey = os.environ.get("OPENAI_API_KEY")
 
 
 embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
@@ -34,13 +35,19 @@ def get_text_chunks(text):
 
 
 def get_vectorstore(text_chunks):
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(api_key=openaikey)
     # embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
     vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
     return vectorstore
 
-def get_conversational_chain():
+def get_conversational_chain(vectorstore):
     llm = ChatOpenAI(temperature=0.2)
     # llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.5, "max_length":512})
     memory = ConversationBufferMemory(memory_key='chat_history', return_messages=True)
+    conversation_chain = ConversationalRetrievalChain.from_llm(
+        llm=llm,
+        retriever=vectorstore.as_retriever(),
+        memory=memory
+    )
+    return conversation_chain
     

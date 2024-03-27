@@ -6,7 +6,7 @@ def get_all_links (url):
 
 
     # URL of the website you want to scrape
-    url = 'https://example.com'
+    url = 'https://python.langchain.com/docs/modules/chains'
 
     # Send a GET request to the URL
     response = requests.get(url)

@@ -61,6 +61,11 @@ def get_conversational_chain(vectorstore):
     #     memory=memory
     # )
     # return conversation_chain
+    
+    # retriever = VectorStoreRetriever(vectorstore=FAISS(...))
+    # retrievalQA = RetrievalQA.from_llm(llm=OpenAI(), retriever=retriever)
+
+    
     template = """Answer the question based only on the following context:
     {context}   
 

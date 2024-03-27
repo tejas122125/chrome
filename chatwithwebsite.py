@@ -6,7 +6,7 @@ def get_all_links (url):
 
 
     # URL of the website you want to scrape
-    url = 'https://python.langchain.com/docs/modules/chains'
+    # url = 'https://python.langchain.com/docs/modules/chains'
 
     # Send a GET request to the URL
     response = requests.get(url)
@@ -27,3 +27,10 @@ def get_all_links (url):
                 print(href)
     else:
         print("Failed to fetch the webpage. Status code:", response.status_code)
+
+def main():
+    get_all_links("https://python.langchain.com/docs/modules/chains")
+
+if __name__ == '__main__':
+    
+    main()    

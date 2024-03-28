@@ -1,12 +1,12 @@
 import requests 
 from bs4 import BeautifulSoup
+from langchain_community.document_loaders import UnstructuredURLLoader
+from langchain_text_splitters import CharacterTextSplitter
+
+
 
 def get_all_links (url):
     link_collection = []
-
-
-    # URL of the website you want to scrape
-    # url = 'https://python.langchain.com/docs/modules/chains'
 
     # Send a GET request to the URL
     response = requests.get(url)
@@ -27,6 +27,12 @@ def get_all_links (url):
                 print(href)
     else:
         print("Failed to fetch the webpage. Status code:", response.status_code)
+
+def data_loader(urls):
+    for url in urls :
+        loader = UnstructuredURLLoader(urls=url)
+
+        
 
 def main():
     get_all_links("https://python.langchain.com/docs/modules/chains")

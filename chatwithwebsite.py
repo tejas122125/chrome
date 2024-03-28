@@ -75,7 +75,12 @@ def conversational_chain(vectorestore):
 
 
 def main():
-    get_all_links("https://python.langchain.com/docs/modules/chains")
+    links = get_all_links("https://python.langchain.com/docs/modules/chains") 
+    # here we have to change the dynamic routes manually
+       
+    text_chunks = get_text_chunks(links)
+    vectore_store = get_vectorstore(text_chunks) 
+    conversation_chain = get_conversational_chain(vectore_store)   
 
 if __name__ == '__main__':
     

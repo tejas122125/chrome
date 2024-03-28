@@ -64,7 +64,7 @@ def get_vectorstore(text_chunks):
     vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
     return vectorstore        
 
-def conversational_chain(vectorestore):
+def get_conversational_chain(vectorestore):
     llm = ChatOpenAI(temperature=0.2,api_key=openaikey)
     
     chain = RetrievalQAWithSourcesChain.from_llm(llm=llm, retriever=vectorestore.as_retriever())
@@ -81,6 +81,7 @@ def main():
     text_chunks = get_text_chunks(links)
     vectore_store = get_vectorstore(text_chunks) 
     conversation_chain = get_conversational_chain(vectore_store)   
+    conversation_chain({"question":"how to use lang chain"})
 
 if __name__ == '__main__':
     

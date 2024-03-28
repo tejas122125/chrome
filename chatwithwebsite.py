@@ -45,7 +45,11 @@ def get_text_chunks(text):
     chunks = text_splitter.split_text(text)
     return chunks
 
-        
+def get_vectorstore(text_chunks):
+    embeddings = OpenAIEmbeddings(api_key=openaikey)
+    # embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
+    vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
+    return vectorstore        
 
 def main():
     get_all_links("https://python.langchain.com/docs/modules/chains")

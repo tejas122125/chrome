@@ -3,8 +3,11 @@ import requests
 from bs4 import BeautifulSoup
 from langchain_community.document_loaders import UnstructuredURLLoader
 from langchain_text_splitters import CharacterTextSplitter
+from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings,ChatOpenAI
 from dotenv import load_dotenv
+from langchain.chains import RetrievalQAWithSourcesChain
+from langchain.chains.question_answering import load_qa_chain
 
 
 
@@ -60,6 +63,16 @@ def get_vectorstore(text_chunks):
     # embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
     vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
     return vectorstore        
+
+def conversational_chain(vectorestore):
+    llm = ChatOpenAI(temperature=0.2,api_key=openaikey)
+    
+    chain = RetrievalQAWithSourcesChain.from_llm(llm=llm, retriever=vectorestore.as_retriever())
+    return chain 
+    
+    
+
+
 
 def main():
     get_all_links("https://python.langchain.com/docs/modules/chains")

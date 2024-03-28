@@ -37,13 +37,36 @@ def get_all_links (url):
             href = link.get('href')
             if href:
                 link_collection.append(href)
-                print(href)
+                # print(href)
+        clean_links(link_collection,url)            
     else:
         print("Failed to fetch the webpage. Status code:", response.status_code)
 
+
+def clean_links(links,url):
+    cleaned_links = []
+    substring = "https://"
+    for link in  links:
+        if substring not in link:
+            newlink = url+link
+            cleaned_links.append(newlink)
+    # print(cleaned_links)
+    data_loader(cleaned_links)
+           
+       
+    
 def data_loader(urls):
+    chunks = ""
+    # here we need to apply optimisation as memory of device is limited storing and chunking in vector store
     for url in urls :
         loader = UnstructuredURLLoader(urls=url)
+        data = loader.load()
+        chunks = chunks +"/n"+ get_text_chunks(data)
+    vectorstore = get_vectorstore(chunks)
+    conversational_chain = get_conversational_chain(vectorstore)
+    return conversational_chain
+        
+        
 
 
 
@@ -64,10 +87,10 @@ def get_vectorstore(text_chunks):
     vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
     return vectorstore        
 
-def get_conversational_chain(vectorestore):
+def get_conversational_chain(vectorstore):
     llm = ChatOpenAI(temperature=0.2,api_key=openaikey)
     
-    chain = RetrievalQAWithSourcesChain.from_llm(llm=llm, retriever=vectorestore.as_retriever())
+    chain = RetrievalQAWithSourcesChain.from_llm(llm=llm, retriever=vectorstore.as_retriever())
     return chain 
     
     
@@ -75,13 +98,13 @@ def get_conversational_chain(vectorestore):
 
 
 def main():
-    links = get_all_links("https://python.langchain.com/docs/modules/chains") 
+    get_all_links("https://python.langchain.com/docs/modules/chains") 
     # here we have to change the dynamic routes manually
        
-    text_chunks = get_text_chunks(links)
-    vectore_store = get_vectorstore(text_chunks) 
-    conversation_chain = get_conversational_chain(vectore_store)   
-    conversation_chain({"question":"how to use lang chain"})
+    # text_chunks = get_text_chunks(links)
+    # vectore_store = get_vectorstore(text_chunks) 
+    # conversation_chain = get_conversational_chain(vectore_store)   
+    # conversation_chain({"question":"how to use lang chain"})
 
 if __name__ == '__main__':
     

@@ -1,15 +1,19 @@
+import os
 import requests 
 from bs4 import BeautifulSoup
 from langchain_community.document_loaders import UnstructuredURLLoader
 from langchain_text_splitters import CharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings,ChatOpenAI
+from dotenv import load_dotenv
+
+
 
 load_dotenv()
 openaikey = os.environ.get("OPENAI_API_KEY")
-# print("fbvjhvb"+openaikey)
 
 embeddings = OpenAIEmbeddings(model="text-embedding-3-large",api_key=openaikey)
-def get_pdf_text(pdf_docs_path):
+
+
 
 def get_all_links (url):
     link_collection = []
